@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "3.8.2",
+
   "description": "⚒️ An SDK for building applications on top of Uniswap V3",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -35,9 +35,7 @@
   "devDependencies": {
     "@types/jest": "^24.0.25",
     "@uniswap/v3-core": "1.0.0",
-    "tsdx": "^0.14.1",
-    "typedoc": "^0.20.36",
-    "typedoc-plugin-markdown": "^3.7.2"
+
   },
   "engines": {
     "node": ">=10"
