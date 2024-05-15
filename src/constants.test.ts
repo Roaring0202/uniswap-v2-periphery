@@ -1,23 +1,48 @@
-import { POOL_INIT_CODE_HASH, POOL_INIT_CODE_HASH_OPTIMISM } from './constants'
+{
+  "name": "@uniswap/v3-sdk",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
 
-import { bytecode } from '@uniswap/v3-core/artifacts/contracts/UniswapV3Pool.sol/UniswapV3Pool.json'
-import { bytecode as SwapRouterBytecode } from '@uniswap/v3-periphery-optimism/artifacts-ovm/contracts/SwapRouter.sol/SwapRouter.json'
-import { keccak256 } from '@ethersproject/solidity'
+  "description": "⚒️ An SDK for building applications on top of Uniswap V3",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": "https://github.com/Uniswap/uniswap-v3-sdk.git",
+  "keywords": [
+    "uniswap",
+    "ethereum"
+  ],
+  "module": "dist/v3-sdk.esm.js",
+  "scripts": {
+    "build": "tsdx build",
+    "start": "tsdx watch",
+    "test": "tsdx test",
+    "prepublishOnly": "tsdx build"
+  },
+  "dependencies": {
+    "@ethersproject/abi": "^5.0.12",
+    "@ethersproject/solidity": "^5.0.9",
+    "@uniswap/sdk-core": "^3.0.1",
+    "@uniswap/v3-periphery": "^1.1.1",
+    "@uniswap/v3-staker": "1.0.0",
+    "tiny-invariant": "^1.1.0",
+    "tiny-warning": "^1.0.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.25",
+    "@uniswap/v3-core": "1.0.0",
 
-// this _could_ go in constants, except that it would cost every consumer of the sdk the CPU to compute the hash
-// and load the JSON.
-const COMPUTED_INIT_CODE_HASH = keccak256(['bytes'], [bytecode])
-
-describe('constants', () => {
-  describe('INIT_CODE_HASH', () => {
-    it('matches computed bytecode hash', () => {
-      expect(COMPUTED_INIT_CODE_HASH).toEqual(POOL_INIT_CODE_HASH)
-    })
-
-    it('optimism', () => {
-      // bit of a hack, but the SwapRouter consumes the PoolAddress library, which contains the bytecode hash...
-      // we can't get it from core because the hash depends on library addresses
-      expect(SwapRouterBytecode).toMatch(new RegExp(`.*${POOL_INIT_CODE_HASH_OPTIMISM.slice(2)}.*`))
-    })
-  })
-})
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "semi": false,
+    "singleQuote": true
+  }
+}
